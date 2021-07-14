@@ -45,13 +45,13 @@
 
 
   - name: Remove swapfile from /etc/fstab
-  mount:
-    name: "{{ item }}"
-    fstype: swap
-    state: absent
-  with_items:
-    - swap
-    - none
+    mount:
+      name: "{{ item }}"
+      fstype: swap
+      state: absent
+    with_items:
+      - swap
+      - none
 
   - name: Disable swap
     command: swapoff -a
@@ -79,12 +79,12 @@
         - kubeadm 
         - kubectl
 
-  # - name: Configure node ip
-  #   lineinfile:
-  #     path: /etc/default/kubelet
-  #     line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
-  #     state: present
-  #     create: yes
+  - name: Configure node ip
+    lineinfile:
+      path: /etc/default/kubelet
+      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+      state: present
+      create: yes
 
   - name: Restart kubelet
     service:
