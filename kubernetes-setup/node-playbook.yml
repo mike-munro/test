@@ -43,6 +43,7 @@
       name: vagrant
       group: docker
 
+
   - name: Remove swapfile from /etc/fstab
   mount:
     name: "{{ item }}"
@@ -78,10 +79,12 @@
         - kubeadm 
         - kubectl
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+  # - name: Configure node ip
+  #   lineinfile:
+  #     path: /etc/default/kubelet
+  #     line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+  #     state: present
+  #     create: yes
 
   - name: Restart kubelet
     service:
